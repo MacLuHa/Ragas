@@ -16,8 +16,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from summarizer.service import OpenAISummarizer
-from summarizer.telemetry import LangfuseTelemetrySink, NoopTelemetrySink
-from summarizer.evaluator import OpenAIEvaluator
+from summarizer.telemetry import NoopTelemetrySink
 
 
 def build_httpx_client_from_env() -> httpx.Client | None:
@@ -33,16 +32,11 @@ def build_httpx_client_from_env() -> httpx.Client | None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Summarize text with OpenAI and send metrics to Langfuse"
+        description="Summarize text with OpenAI and collect local metrics"
     )
     parser.add_argument("--text", help="Source text to summarize")
     parser.add_argument("--file", help="Path to text file to summarize")
     parser.add_argument("--model", default="gpt-4o-mini", help="OpenAI model name")
-    parser.add_argument(
-        "--no-langfuse",
-        action="store_true",
-        help="Disable Langfuse telemetry",
-    )
     return parser.parse_args()
 
 
@@ -55,30 +49,6 @@ def read_input_text(args: argparse.Namespace) -> str:
     raise ValueError("Pass --text or --file")
 
 
-def build_telemetry(disabled: bool):
-    if disabled:
-        return NoopTelemetrySink()
-
-    public_key = os.getenv("LANGFUSE_PUBLIC_KEY")
-    secret_key = os.getenv("LANGFUSE_SECRET_KEY")
-    host = os.getenv("LANGFUSE_HOST", "https://cloud.langfuse.com")
-
-    if not public_key or not secret_key:
-        print(
-            "LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY are not set. "
-            "Fallback to no-op telemetry.",
-            file=sys.stderr,
-        )
-        return NoopTelemetrySink()
-
-    return LangfuseTelemetrySink(
-        public_key=public_key,
-        secret_key=secret_key,
-        host=host,
-        httpx_client=build_httpx_client_from_env(),
-    )
-
-
 def main() -> None:
     args = parse_args()
     source_text = read_input_text(args)
@@ -89,7 +59,7 @@ def main() -> None:
     summarizer = OpenAISummarizer(
         client=openai_client,
         model=args.model,
-        telemetry=build_telemetry(disabled=args.no_langfuse),
+        telemetry=NoopTelemetrySink(),
     )
     result = summarizer.summarize(source_text)
 

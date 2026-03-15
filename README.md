@@ -1,22 +1,44 @@
-### 1) Список трасс
-![Tracing list](media/Screenshot%202026-03-15%20at%2012.45.40.png)
 
-### 2) Детали трейса с метриками
-![Trace details](media/Screenshot%202026-03-15%20at%2012.45.56.png)
+## Live результаты
 
-### 3) Дашборд агрегированных метрик
-![Dashboard overview](media/Screenshot%202026-03-15%20at%2012.46.29.png)
+- JSON-отчёт: [artifacts/ragas/live/results.json](artifacts/ragas/live/results.json)
+- HTML-отчёт: [artifacts/ragas/live/results.html](artifacts/ragas/live/results.html)
 
-### 4) Конфигурация LLM-as-a-Judge
-![Evaluator config](media/Screenshot%202026-03-15%20at%2012.48.09.png)
+Используемые метрики:
 
-### 5) Score evaluator внутри трейса
-![Evaluator score in trace](media/Screenshot%202026-03-15%20at%2012.50.10.png)
+- `Faithfulness` — насколько ответ опирается на факты из контекста и не добавляет галлюцинации.
+- `Answer Relevance` — насколько ответ релевантен исходному запросу/задаче.
+- `Context Recall` — насколько полно ответ покрывает ключевые факты, которые есть в контексте.
 
-## Выводы по результатам
+Значения из `artifacts/ragas/live/results.json`:
 
-- В целом всё работает хорошо: трассировка стабильная, данные в Langfuse приходят без пропусков.
-- По каждому запуску видно понятную картину: сколько занял запрос, сколько токенов ушло и какая получилась примерная стоимость.
-- Кастомный evaluator тоже подключен успешно: его оценка отображается прямо в трейсе, и это удобно для быстрой проверки качества ответа.
-- На дашборде уже видно динамику по запускам, так что наблюдать за качеством и метриками стало заметно проще.
-- Стоимость на тестовых примерах небольшая, что ожидаемо для `gpt-4o-mini` и выглядит нормально.
+```json
+{
+  "mode": "live",
+  "candidate_source": "summarizer",
+  "summarization_model": "gpt-4.1-mini",
+  "aggregate_scores": {
+    "faithfulness": 0.5794,
+    "answer_relevance": 0.7182,
+    "context_recall": 0.9667
+  },
+  "thresholds": {
+    "faithfulness": 0.7,
+    "answer_relevance": 0.65,
+    "context_recall": 0.7
+  },
+  "threshold_checks": {
+    "faithfulness": false,
+    "answer_relevance": true,
+    "context_recall": true
+  },
+  "passed": false
+}
+```
+
+## Выводы
+
+- Пайплайн live работает и оценивает **реальные ответы суммаризатора** (`candidate_source = summarizer`).
+- `Answer Relevance` и `Context Recall` проходят пороги.
+- Основная проблема качества сейчас — `Faithfulness` (`0.5794 < 0.7`), из-за чего общий quality gate не пройден (`passed = false`).
+- Приоритет улучшений: уменьшать галлюцинации и усиливать сохранение фактов из исходного текста.

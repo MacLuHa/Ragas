@@ -24,13 +24,13 @@ class OpenAISummarizer:
         client: Any,
         max_output_tokens: int = 500,
         model: Optional[str] = None,
-        #evaluator: OpenAIEvaluator | None = None,
+        evaluator: OpenAIEvaluator | None = None,
         telemetry: TelemetrySink | None = None,
     ) -> None:
         self.client = client
         self.model = model if model else os.getenv("OPENAI_MODEL_SUMMARIZATION", None)
         self.max_output_tokens = max_output_tokens
-       # self.evaluator = evaluator
+        self.evaluator = evaluator
         self.telemetry = telemetry or NoopTelemetrySink()
 
     def summarize(self, text: str) -> SummaryResult:
@@ -72,15 +72,15 @@ class OpenAISummarizer:
             ),
         )
 
-        #evaluator_score: float | None = None
-        #if self.evaluator is not None:
-            #evaluator_score = self.evaluator.evaluate(text=text, summary=output_text)
+        evaluator_score: float | None = None
+        if self.evaluator is not None:
+            evaluator_score = self.evaluator.evaluate(text=text, summary=output_text)
 
         self.telemetry.finish_run(
             context=context,
             input_text=text,
             output_text=output_text,
             metrics=metrics,
-            #evaluator_score=evaluator_score,
+            evaluator_score=evaluator_score,
         )
         return SummaryResult(summary=output_text, metrics=metrics)
