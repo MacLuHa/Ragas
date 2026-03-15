@@ -1,0 +1,114 @@
+{
+  "timestamp": "2026-03-15T11:10:30.917228+00:00",
+  "mode": "mock",
+  "candidate_source": "summarizer",
+  "summarization_model": "gpt-4.1-mini",
+  "aggregate_scores": {
+    "faithfulness": 0.9444,
+    "answer_relevance": 0.8765,
+    "context_recall": 0.7544
+  },
+  "per_sample_scores": [
+    {
+      "id": "ru-001",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9761,
+      "context_recall": 0.75
+    },
+    {
+      "id": "ru-002",
+      "faithfulness": 0.75,
+      "answer_relevance": 0.7625,
+      "context_recall": 0.25
+    },
+    {
+      "id": "ru-003",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9083,
+      "context_recall": 0.6667
+    },
+    {
+      "id": "ru-004",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.89,
+      "context_recall": 0.3333
+    },
+    {
+      "id": "ru-005",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8625,
+      "context_recall": 0.8333
+    },
+    {
+      "id": "ru-006",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.8625,
+      "context_recall": 0.8
+    },
+    {
+      "id": "ru-007",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9389,
+      "context_recall": 1.0
+    },
+    {
+      "id": "ru-008",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9175,
+      "context_recall": 1.0
+    },
+    {
+      "id": "ru-009",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.89,
+      "context_recall": 1.0
+    },
+    {
+      "id": "ru-010",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9421,
+      "context_recall": 0.6
+    },
+    {
+      "id": "ru-011",
+      "faithfulness": 0.75,
+      "answer_relevance": 0.6875,
+      "context_recall": 0.75
+    },
+    {
+      "id": "ru-012",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9132,
+      "context_recall": 1.0
+    },
+    {
+      "id": "ru-013",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9389,
+      "context_recall": 1.0
+    },
+    {
+      "id": "ru-014",
+      "faithfulness": 0.6667,
+      "answer_relevance": 0.7033,
+      "context_recall": 0.3333
+    },
+    {
+      "id": "ru-015",
+      "faithfulness": 1.0,
+      "answer_relevance": 0.9542,
+      "context_recall": 1.0
+    }
+  ],
+  "thresholds": {
+    "faithfulness": 0.7,
+    "answer_relevance": 0.65,
+    "context_recall": 0.7
+  },
+  "threshold_checks": {
+    "faithfulness": true,
+    "answer_relevance": true,
+    "context_recall": true
+  },
+  "passed": true
+}

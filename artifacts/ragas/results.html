@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ragas Evaluation Report</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 24px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 24px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #f6f6f6; }
+  </style>
+</head>
+<body>
+  <h1>Ragas Evaluation Report</h1>
+  <p><strong>Mode:</strong> mock</p>
+  <p><strong>Timestamp:</strong> 2026-03-15T10:54:52.932232+00:00</p>
+  <p><strong>Status:</strong> PASS</p>
+
+  <h2>Aggregate Scores</h2>
+  <table>
+    <thead><tr><th>Metric</th><th>Score</th><th>Threshold</th><th>Gate</th></tr></thead>
+    <tbody><tr><td>faithfulness</td><td>0.9444</td><td>0.7000</td><td>PASS</td></tr><tr><td>answer_relevance</td><td>0.8765</td><td>0.6500</td><td>PASS</td></tr><tr><td>context_recall</td><td>0.7544</td><td>0.7000</td><td>PASS</td></tr></tbody>
+  </table>
+
+  <h2>Per Sample Scores</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Faithfulness</th><th>Answer Relevance</th><th>Context Recall</th></tr></thead>
+    <tbody><tr><td>ru-001</td><td>1.0000</td><td>0.9761</td><td>0.7500</td></tr><tr><td>ru-002</td><td>0.7500</td><td>0.7625</td><td>0.2500</td></tr><tr><td>ru-003</td><td>1.0000</td><td>0.9083</td><td>0.6667</td></tr><tr><td>ru-004</td><td>1.0000</td><td>0.8900</td><td>0.3333</td></tr><tr><td>ru-005</td><td>1.0000</td><td>0.8625</td><td>0.8333</td></tr><tr><td>ru-006</td><td>1.0000</td><td>0.8625</td><td>0.8000</td></tr><tr><td>ru-007</td><td>1.0000</td><td>0.9389</td><td>1.0000</td></tr><tr><td>ru-008</td><td>1.0000</td><td>0.9175</td><td>1.0000</td></tr><tr><td>ru-009</td><td>1.0000</td><td>0.8900</td><td>1.0000</td></tr><tr><td>ru-010</td><td>1.0000</td><td>0.9421</td><td>0.6000</td></tr><tr><td>ru-011</td><td>0.7500</td><td>0.6875</td><td>0.7500</td></tr><tr><td>ru-012</td><td>1.0000</td><td>0.9132</td><td>1.0000</td></tr><tr><td>ru-013</td><td>1.0000</td><td>0.9389</td><td>1.0000</td></tr><tr><td>ru-014</td><td>0.6667</td><td>0.7033</td><td>0.3333</td></tr><tr><td>ru-015</td><td>1.0000</td><td>0.9542</td><td>1.0000</td></tr></tbody>
+  </table>
+</body>
+</html>
